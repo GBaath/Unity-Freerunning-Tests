@@ -115,11 +115,19 @@ public class FPController : MonoBehaviour
                 move = Vector3.zero;
             }*/
             //move does not modify y vel
-            Vector3 vel = move * speed * speedMultiplier;
-            vel.y += rb.velocity.y;
-            vel += autoMove;
+            if (grounded)
+            {
+                Vector3 vel = move * speed * speedMultiplier;
+                vel.y += rb.velocity.y;
+                vel += autoMove;
 
-            rb.velocity = vel;        
+                rb.velocity = vel;        
+            }
+            else
+            {
+                Vector3 vel = autoMove + rb.velocity;
+                rb.velocity = vel;
+            }
         }
         //gravity
         Vector3 velocity = rb.velocity;
