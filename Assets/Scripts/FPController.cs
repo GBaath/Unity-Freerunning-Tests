@@ -109,11 +109,11 @@ public class FPController : MonoBehaviour
     {
         if (canMove)
         {
-            //Vector3 verticalVelocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-            if(Physics.Raycast(transform.position, move.normalized, 0.75f, ~playerLayers))
+            //if wall in move dir
+            /*if(Physics.Raycast(transform.position, move.normalized, 0.75f, ~playerLayers))
             {
                 move = Vector3.zero;
-            }
+            }*/
             //move does not modify y vel
             Vector3 vel = move * speed * speedMultiplier;
             vel.y += rb.velocity.y;

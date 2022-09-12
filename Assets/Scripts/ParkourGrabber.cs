@@ -131,7 +131,7 @@ public class ParkourGrabber : MonoBehaviour
         RaycastHit ray;
             Vector3 raystartpos = new Vector3(obstCheck.transform.position.x, obstCheck.transform.position.y + 5, obstCheck.transform.position.z);
             Physics.Raycast(raystartpos, Vector3.down, out ray, 5f);
-            Vector3 pos = ray.point + Vector3.up; //y+1 cus player center is higher
+        Vector3 pos = ray.point - Vector3.up; //y+1 cus player center is higher
             
         //extra forwardmove so you wont fall bdown backwards
         float xzDif = (pos.x + pos.z) - (transform.position.x + transform.position.z);
@@ -145,6 +145,7 @@ public class ParkourGrabber : MonoBehaviour
 
         ////automove
         //fpController.StartCoroutine(fpController.LerpAutoMove(fpController.moveRaw * climbSpeed ,climbSpeed));
+        Debug.Log(pos);
 
         //lowcolLerpfor fallthru-proofing //should prollly convert to method
         lowColl.center = new Vector3(0, 0.4f, 0);
