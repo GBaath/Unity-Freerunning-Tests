@@ -77,7 +77,7 @@ public class ParkourGrabber : MonoBehaviour
         fpController.Invoke("ResetGravityScale",0.75f);
 
         //automove
-        fpController.StartCoroutine(fpController.LerpAutoMove(fpController.moveRaw*3, 1f));
+        fpController.StartCoroutine(fpController.LerpAutoMove(fpController.moveRaw*3, 0.25f));
 
         //reset doingMove in 500ms
         StartCoroutine(VarChange(result => doingMove = result, 0.5f, false));
@@ -98,7 +98,7 @@ public class ParkourGrabber : MonoBehaviour
         fpController.Invoke("ResetGravityScale", 0.75f);
 
         //automove
-        fpController.StartCoroutine(fpController.LerpAutoMove(fpController.moveRaw * 2, 1f));
+        fpController.StartCoroutine(fpController.LerpAutoMove(fpController.moveRaw * 2, 0.5f));
 
         //lerpY
 
@@ -143,9 +143,6 @@ public class ParkourGrabber : MonoBehaviour
         fpController.StartCoroutine(fpController.SlerpPlayerPos(pos, climbSpeed));
         //fpController.StartCoroutine(fpController.LerpPlayerY(pos.y,climbSpeed));
 
-        ////automove
-        //fpController.StartCoroutine(fpController.LerpAutoMove(fpController.moveRaw * climbSpeed ,climbSpeed));
-        Debug.Log(pos);
 
         //lowcolLerpfor fallthru-proofing //should prollly convert to method
         lowColl.center = new Vector3(0, 0.4f, 0);
