@@ -38,7 +38,7 @@ public class FPController : MonoBehaviour
     private IEnumerator speedLerp;
     [SerializeField]private bool cr_running = false;
     [SerializeField]private bool canMove = true;
-    private bool grounded;
+    [HideInInspector] public bool grounded;
 
 
     //look

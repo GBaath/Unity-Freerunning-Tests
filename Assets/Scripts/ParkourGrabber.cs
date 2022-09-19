@@ -62,6 +62,11 @@ public class ParkourGrabber : MonoBehaviour
         {
             WallJump((fpController.moveRaw*2+Vector3.up));
         }
+        else if(Input.GetButtonDown("Slide") &!doingMove)
+        {
+            if (Input.GetAxisRaw("VerticalForward") > 0 && fpController.grounded)
+                Slide();
+        }
     }
     public void VaultForward()
     {
@@ -165,6 +170,20 @@ public class ParkourGrabber : MonoBehaviour
         fpController.StartCoroutine(fpController.LerpAutoMove(dir, 0.15f));
         fpController.gravityScale = 0;
         fpController.Invoke("ResetGravityScale", 0.15f);
+    }
+    public void Slide()
+    {
+        //bonus grav
+        fpController.gravityScale = fpController.gravityScale * 50;
+        fpController.Invoke("ResetGravityScale", 0.15f);
+
+        //lerping legs collider and for raise effect
+        lowColl.center = new Vector3(0, 0.4f, 0);
+        IEnumerator delayHolder = LerpColliderCenter(new Vector3(0, -0.7f, 0), 0.25f, lowColl);
+        StartCoroutine(CoroutineDelay(delayHolder, 1f));
+
+        //automove
+        fpController.StartCoroutine(fpController.LerpAutoMove(fpController.moveRaw, 0.25f));
     }
     public void MoveDone()
     {
