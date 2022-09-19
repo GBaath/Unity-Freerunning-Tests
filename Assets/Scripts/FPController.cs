@@ -58,12 +58,18 @@ public class FPController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         startFov = Camera.main.fieldOfView;
         sprintFov = startFov + 15;
+
+        //hoes mad if dont do in start
         speedLerp = LerpSpeed(1.5f,sprintFov, 0.5f);
+
+        //set default from inspector value
         _gravityScale = gravityScale;
 
+        //hide cursor
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
+        //get player layers
         playerLayers += gameObject.layer;
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -75,21 +81,20 @@ public class FPController : MonoBehaviour
     {
         //for input reference
         moveXRaw = Input.GetAxisRaw("Horizontal");
-
         moveX = Input.GetAxis("Horizontal");
         moveZF = Input.GetAxis("VerticalForward")*2;
         moveZB = Input.GetAxis("VerticalBackward");
         moveZRaw = Input.GetAxisRaw("VerticalForward") + Input.GetAxisRaw("VerticalBackward");
+        //total zmove
         moveZ = moveZF + moveZB;
+        //total move input
         move = transform.right * moveX + transform.forward * moveZ;
         moveRaw = transform.right * moveXRaw + transform.forward * moveZRaw;
 
-        SprintChecks();
-
-      
         mouseX = Input.GetAxis("Mouse X") * mouseSens * sensMultiplier * Time.deltaTime;
         mouseY = Input.GetAxis("Mouse Y") * mouseSens * sensMultiplier * Time.deltaTime;
 
+        SprintChecks();
         Look();
         Jump();
     }
@@ -194,6 +199,7 @@ public class FPController : MonoBehaviour
             sensMultiplier = 1;
         }
     }
+    //set from unityevent in other collder
     public void Grounded(bool grounded)
     {
         this.grounded = grounded;
@@ -206,6 +212,7 @@ public class FPController : MonoBehaviour
     {
         rb.AddForce(force, ForceMode.VelocityChange);
     }
+    //set camera fov depending on velocity
     private void SetSpeedFOV()
     {
         float percentage = speed / (speed * speedMultiplier);
@@ -236,18 +243,15 @@ public class FPController : MonoBehaviour
         while (time < duration)
         {
             speedMultiplier = Mathf.Lerp(startValue, endVal, time / duration);
-            //  Camera.main.fieldOfView = Mathf.Lerp(startFov, endFov, time / duration);
             SetSpeedFOV();
             time += Time.deltaTime;
             yield return null;
         }
         speedMultiplier = endVal;
-        //Camera.main.fieldOfView = endFov;
         cr_running = false;
         SetSpeedFOV();
     }
 
-    //lerp vector
     public IEnumerator LerpPlayerPos(Vector3 endValue, float duration)
     {
         //temp disable gravity & lock movement
@@ -279,6 +283,7 @@ public class FPController : MonoBehaviour
         transform.position = new Vector3(transform.position.x, endVal, transform.position.z);
         gravityScale = _gravityScale;
     }
+    //lerps automove value to zero
     public IEnumerator LerpAutoMove(Vector3 startValue, float duration)
     {
         float time = 0;

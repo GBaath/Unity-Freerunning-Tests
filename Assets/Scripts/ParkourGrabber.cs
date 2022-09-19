@@ -9,25 +9,26 @@ public class ParkourGrabber : MonoBehaviour
     public CapsuleCollider lowColl;
 
     [SerializeField] private HandsAnimator handAnim;
-    public LayerMask climbLayer;
 
     private FPController fpController;
     private Rigidbody rb;
 
+    private float defClimbspeed;
     public float climbSpeed =0.5f;
     private bool canWallJump;
-
     [SerializeField]private bool doingMove = false;
+
     private void Start()
     {
         fpController = GetComponent<FPController>();
         rb = GetComponent<Rigidbody>();
+        defClimbspeed = climbSpeed;
     }
     void Update()
     {
         
-        //if unput vaultover & nothing in the way & not doing another move //&& has speed forward
-        if (Input.GetButton("Hand") && obstCheck.blockedLow &! obstCheck.blockedForward &! obstCheck.blockedMid &! doingMove) //&& (rb.velocity.magnitude*transform.forward).magnitude > 2f)
+        //if unput vaultover & nothin g in the way & not doing another move //&& has speed forward
+        if (Input.GetButton("Hand") && obstCheck.blockedLow &! obstCheck.blockedForward &! obstCheck.blockedMid &! doingMove)
         {
             if (Input.GetAxisRaw("VerticalForward")>0)
             {
@@ -53,15 +54,13 @@ public class ParkourGrabber : MonoBehaviour
             {
                 fpController.StopJump();
                 doingMove = true;
-                //playing animation for moving climbcollider
-                //  colliderAnimator.enabled = true;
                 ClimbUp();
             }
             
         }
-        else if(Input.GetButton("Jump") & !doingMove && canWallJump)
+        else if(Input.GetButtonDown("Jump") & !doingMove && canWallJump)
         {
-            Debug.Log("wjump");
+            WallJump((fpController.moveRaw*2+Vector3.up));
         }
     }
     public void VaultForward()
@@ -69,19 +68,19 @@ public class ParkourGrabber : MonoBehaviour
         //play vault1 animation //TODO make several and randomize
         handAnim.SetTrigger("Vault1");
 
-        //lerping legs collider for climbeffect
+        //lerping legs collider and gravityscale for climbeffect
         lowColl.center = new Vector3(0, 0.4f, 0);
         IEnumerator delayHolder = LerpColliderCenter(new Vector3(0, -0.7f, 0), 0.25f, lowColl);
         StartCoroutine(CoroutineDelay(delayHolder,0.25f));
         fpController.gravityScale = fpController.gravityScale/50;
-        fpController.Invoke("ResetGravityScale",0.75f);
+        fpController.Invoke("ResetGravityScale",0.25f);
 
         //automove
         fpController.StartCoroutine(fpController.LerpAutoMove(fpController.moveRaw*3, 0.25f));
 
         //reset doingMove in 500ms
         StartCoroutine(VarChange(result => doingMove = result, 0.5f, false));
-        //sensmultiplier
+        //lower sensmultiplier during move
         fpController.sensMultiplier = 0.5f;
         StartCoroutine(VarChange(result => fpController.sensMultiplier = result, 0.5f, 1f));
     }
@@ -90,7 +89,7 @@ public class ParkourGrabber : MonoBehaviour
         //play vault1 animation //TODO make several and randomize
         handAnim.SetTrigger("VaultUp1");
 
-        //lerping legs collider for climbeffect
+        //lerping legs collider and gravityscale for climbeffect
         lowColl.center = new Vector3(0, 0.4f, 0);
         IEnumerator delayHolder = LerpColliderCenter(new Vector3(0, -0.7f, 0), 0.25f, lowColl);
         StartCoroutine(CoroutineDelay(delayHolder, 0.1f));
@@ -98,7 +97,7 @@ public class ParkourGrabber : MonoBehaviour
         fpController.Invoke("ResetGravityScale", 0.75f);
 
         //automove
-        fpController.StartCoroutine(fpController.LerpAutoMove(fpController.moveRaw * 2, 0.5f));
+        fpController.StartCoroutine(fpController.LerpAutoMove(fpController.moveRaw * 2, 0.25f));
 
         //lerpY
 
@@ -108,12 +107,12 @@ public class ParkourGrabber : MonoBehaviour
             Physics.Raycast(raystartpos, Vector3.down, out ray, 2f);
             Vector3 pos = ray.point + Vector3.up*0.5f; //y+1 cus player center is higher
 
-
+        //automove Y
         fpController.StartCoroutine(fpController.LerpPlayerY(pos.y, 0.25f));
 
         //reset doingMove in 500ms
         StartCoroutine(VarChange(result => doingMove = result, 0.5f, false));
-        //sensmultiplier
+        //sensmultiplier during move
         fpController.sensMultiplier = 0.5f;
         StartCoroutine(VarChange(result => fpController.sensMultiplier = result, 0.5f, 1f));
     }
@@ -127,11 +126,11 @@ public class ParkourGrabber : MonoBehaviour
 
         //lerppos
         //ray for destination point
-        //TODO NÅT HÄÖR ÖR JÖVLIGT FEL LÖS PROBLEMET
         RaycastHit ray;
             Vector3 raystartpos = new Vector3(obstCheck.transform.position.x, obstCheck.transform.position.y + 5, obstCheck.transform.position.z);
             Physics.Raycast(raystartpos, Vector3.down, out ray, 5f);
-        Vector3 pos = ray.point - Vector3.up; //y+1 cus player center is higher
+        Vector3 pos = ray.point - Vector3.up; //centeroffset
+        climbSpeed = pos.y - transform.position.y - 1.5f;
             
         //extra forwardmove so you wont fall bdown backwards
         float xzDif = (pos.x + pos.z) - (transform.position.x + transform.position.z);
@@ -144,7 +143,7 @@ public class ParkourGrabber : MonoBehaviour
         //fpController.StartCoroutine(fpController.LerpPlayerY(pos.y,climbSpeed));
 
 
-        //lowcolLerpfor fallthru-proofing //should prollly convert to method
+        //lowcolLerpfor fallthru-proofing //TODO convert all to method
         lowColl.center = new Vector3(0, 0.4f, 0);
         IEnumerator delayHolder = LerpColliderCenter(new Vector3(0, -0.7f, 0), climbSpeed/4, lowColl);
         StartCoroutine(CoroutineDelay(delayHolder, climbSpeed/2));
@@ -161,6 +160,12 @@ public class ParkourGrabber : MonoBehaviour
         fpController.sensMultiplier = 0.5f;
         StartCoroutine(VarChange(result => fpController.sensMultiplier = result, 0.5f, 1f));
     }
+    public void WallJump(Vector3 dir)
+    {
+        fpController.StartCoroutine(fpController.LerpAutoMove(dir, 0.15f));
+        fpController.gravityScale = 0;
+        fpController.Invoke("ResetGravityScale", 0.15f);
+    }
     public void MoveDone()
     {
         doingMove = false;
@@ -168,17 +173,23 @@ public class ParkourGrabber : MonoBehaviour
     public void CanWallJump(bool canWallJump)
     {
         this.canWallJump = canWallJump;
+        fpController.gravityScale = fpController.gravityScale / 25;
+        fpController.Invoke("ResetGravityScale", 0.5f);
+
     }
+    //changes bool after cooldown
     IEnumerator VarChange(System.Action<bool> boolVar, float cooldown, bool endValue)
     {
         yield return new WaitForSeconds(cooldown);
         boolVar(endValue);
     }
+    //change float after cooldown
     IEnumerator VarChange(System.Action<float> floatVar, float cooldown, float endValue)
     {
         yield return new WaitForSeconds(cooldown);
         floatVar(endValue);
     }
+    //lerp centervalue of capsule collider
     private IEnumerator LerpColliderCenter(Vector3 endVal, float duration, CapsuleCollider capsuleCollider)
     {
         float time = 0;
@@ -191,6 +202,7 @@ public class ParkourGrabber : MonoBehaviour
         }
         capsuleCollider.center = endVal;
     }
+    //starts another coroutine after delay
     private IEnumerator CoroutineDelay(IEnumerator ien, float delay)
     {
         yield return new WaitForSeconds(delay);
