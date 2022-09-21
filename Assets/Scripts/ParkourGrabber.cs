@@ -15,8 +15,10 @@ public class ParkourGrabber : MonoBehaviour
 
     private float defClimbspeed;
     public float climbSpeed =0.5f;
+    
     private bool canWallJump;
     [SerializeField]private bool doingMove = false;
+    public bool crouching = false;
 
     private void Start()
     {
@@ -66,6 +68,15 @@ public class ParkourGrabber : MonoBehaviour
         {
             if (Input.GetAxisRaw("VerticalForward") > 0 && fpController.grounded)
                 Slide();
+            else if (fpController.grounded &! crouching)
+                StartCoroutine(Crouch(true, 0));
+            else if(crouching)
+                StartCoroutine(Crouch(false, 0));
+        }
+
+        if(Input.GetButtonDown("Jump") && crouching)
+        {
+            StartCoroutine(Crouch(false, 0));
         }
     }
     public void VaultForward()
@@ -179,8 +190,10 @@ public class ParkourGrabber : MonoBehaviour
 
         //lerping legs collider and for raise effect
         lowColl.center = new Vector3(0, 0.4f, 0);
-        IEnumerator delayHolder = LerpColliderCenter(new Vector3(0, -0.7f, 0), 0.25f, lowColl);
-        StartCoroutine(CoroutineDelay(delayHolder, 1f));
+        //IEnumerator delayHolder = LerpColliderCenter(new Vector3(0, -0.7f, 0), 0.25f, lowColl);
+        //StartCoroutine(CoroutineDelay(delayHolder, 1f));
+        crouching = true;
+        StartCoroutine(Crouch(false, 1f));
 
         //automove
         fpController.StartCoroutine(fpController.LerpAutoMove(fpController.moveRaw, 0.25f));
@@ -191,10 +204,41 @@ public class ParkourGrabber : MonoBehaviour
     }
     public void CanWallJump(bool canWallJump)
     {
-        this.canWallJump = canWallJump;
-        fpController.gravityScale = fpController.gravityScale / 25;
-        fpController.Invoke("ResetGravityScale", 0.5f);
+        if (!fpController.grounded)
+        {
+            this.canWallJump = canWallJump;
+            fpController.gravityScale = fpController.gravityScale / 25;
+            fpController.Invoke("ResetGravityScale", 0.5f);
+        }
 
+    }
+    public IEnumerator Crouch(bool doCrouch, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (doCrouch)
+        {
+            lowColl.center = new Vector3(0, 0.4f, 0);
+            crouching = true;
+        }
+        else
+        {
+            //RaycastHit ray;
+            //Physics.Raycast(transform.position, transform.up, out ray, 2, ~fpController.playerLayers);
+            //if (ray.collider.gameObject.layer != fpController.playerLayers.value)
+            if(!obstCheck.blockedAbove)
+            {
+                //Debug.Log(fpController.playerLayers.value);
+                //Debug.Log(ray.collider.gameObject);
+                StartCoroutine(LerpColliderCenter(new Vector3(0, -0.7f, 0), 0.2f, lowColl));
+                crouching = false;
+            }
+            else
+            {
+                crouching = true;
+
+            }
+        }
     }
     //changes bool after cooldown
     IEnumerator VarChange(System.Action<bool> boolVar, float cooldown, bool endValue)

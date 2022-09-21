@@ -13,7 +13,7 @@ public class FPController : MonoBehaviour
     public Vector3 moveRaw;
     private Vector3 autoMove;
 
-    private LayerMask playerLayers;
+    [HideInInspector] public LayerMask playerLayers;
 
     public float speed;
     public float speedMultiplier = 1;
@@ -23,6 +23,7 @@ public class FPController : MonoBehaviour
     private float _gravityScale;
     [SerializeField] private float jumpDurationLeft;
     private float _jumpDurationLeft;
+    public bool isJumping;
 
     private float moveX;
     private float moveZF;
@@ -143,7 +144,10 @@ public class FPController : MonoBehaviour
     {
         //back on ground no input
         if (grounded & !Input.GetButton("Jump"))
+        {
             _jumpDurationLeft = jumpDurationLeft;
+            isJumping = false;
+        }
 
         //if hold and duration is left, increase height
         if (Input.GetButton("Jump")&& canMove && _jumpDurationLeft > 0)
@@ -151,16 +155,19 @@ public class FPController : MonoBehaviour
             Vector3 velocity = rb.velocity;
             velocity.y += jumpForce;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
+            isJumping = true;
         }
         //lower hold duration
         if (!grounded && Input.GetButton("Jump")&&canMove)
         {
             _jumpDurationLeft -= Time.deltaTime;
+            isJumping = true;
         }
         //when release
         if (Input.GetButtonUp("Jump"))
         {
             _jumpDurationLeft = 0;
+            isJumping = false;
         }
     }
     public void StopJump()
