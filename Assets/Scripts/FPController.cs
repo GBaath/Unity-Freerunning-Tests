@@ -40,6 +40,7 @@ public class FPController : MonoBehaviour
     [SerializeField]private bool cr_running = false;
     [SerializeField]private bool canMove = true;
     [HideInInspector] public bool grounded;
+    [HideInInspector] public bool lockCamera;
 
 
     //look
@@ -105,10 +106,12 @@ public class FPController : MonoBehaviour
     }
     private void Look()
     {
+
         //rotate player and tilt camera
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-        Camera.main.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        if(!lockCamera)
+            Camera.main.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
     }
     public void Move()

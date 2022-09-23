@@ -9,6 +9,7 @@ public class ParkourGrabber : MonoBehaviour
     public CapsuleCollider lowColl;
 
     [SerializeField] private HandsAnimator handAnim;
+    [SerializeField] private CameraAnimator camAnim;
 
     private FPController fpController;
     private Rigidbody rb;
@@ -19,6 +20,7 @@ public class ParkourGrabber : MonoBehaviour
     private bool canWallJump;
     [SerializeField]private bool doingMove = false;
     public bool crouching = false;
+    [SerializeField]private bool qRoll;
 
     private void Start()
     {
@@ -68,11 +70,18 @@ public class ParkourGrabber : MonoBehaviour
         {
             if (Input.GetAxisRaw("VerticalForward") > 0 && fpController.grounded)
                 Slide();
-            else if (fpController.grounded &! crouching)
+            else if (fpController.grounded & !crouching)
                 StartCoroutine(Crouch(true, 0));
-            else if(crouching)
+            else if (crouching)
                 StartCoroutine(Crouch(false, 0));
+            else if (!fpController.grounded)
+            {
+                qRoll = true;
+                //queue roll for 500 ms
+                StartCoroutine(VarChange(result => qRoll = result, 0.5f, false));
+            }
         }
+        TryRoll();
 
         if(Input.GetButtonDown("Jump") && crouching)
         {
@@ -197,6 +206,15 @@ public class ParkourGrabber : MonoBehaviour
 
         //automove
         fpController.StartCoroutine(fpController.LerpAutoMove(fpController.moveRaw, 0.25f));
+    }
+    public void TryRoll()
+    {
+        if (qRoll&&fpController.grounded)
+        {
+            qRoll = false;
+            Debug.Log("roolll");
+            camAnim.Roll();
+        }
     }
     public void MoveDone()
     {
