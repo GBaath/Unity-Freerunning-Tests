@@ -289,15 +289,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1982804885282534826}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1655611786902589516}
   - {fileID: 2413916027945195213}
-  m_Father: {fileID: 2597884506073652940}
-  m_RootOrder: 1
+  m_Father: {fileID: 2597884506160116512}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2597884505337989478
 GameObject:
@@ -678,7 +678,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2597884506160116512}
-  - {fileID: 5343937620140364221}
   m_Father: {fileID: 2597884505552687454}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -749,7 +748,7 @@ GameObject:
   - component: {fileID: 2597884506160116515}
   - component: {fileID: 2597884506160116513}
   m_Layer: 3
-  m_Name: hands
+  m_Name: limbs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -769,6 +768,7 @@ Transform:
   m_Children:
   - {fileID: 2597884505488611586}
   - {fileID: 2597884506821450797}
+  - {fileID: 5343937620140364221}
   m_Father: {fileID: 2597884506073652940}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1538,6 +1538,7 @@ MonoBehaviour:
   cr_running: 0
   canMove: 1
   grounded: 0
+  lockCamera: 0
   mouseSens: 100
   sensMultiplier: 1
 --- !u!54 &2597884507403935327

@@ -146,26 +146,30 @@ public class FPController : MonoBehaviour
     private void Jump()
     {
         //back on ground no input
-        if (grounded & !Input.GetButton("Jump"))
+        if (grounded && Input.GetButtonDown("Jump"))
         {
-            _jumpDurationLeft = jumpDurationLeft;
-            isJumping = false;
-        }
-
-        //if hold and duration is left, increase height
-        if (Input.GetButton("Jump")&& canMove && _jumpDurationLeft > 0)
-        {
+            //_jumpDurationLeft = jumpDurationLeft;
+            //isJumping = false;
             Vector3 velocity = rb.velocity;
             velocity.y += jumpForce;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
             isJumping = true;
         }
+
+        //if hold and duration is left, increase height
+        //if (Input.GetButton("Jump")&& canMove && _jumpDurationLeft > 0)
+        //{
+        //    Vector3 velocity = rb.velocity;
+        //    velocity.y += jumpForce;
+        //    rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
+        //    isJumping = true;
+        //}
         //lower hold duration
-        if (!grounded && Input.GetButton("Jump")&&canMove)
-        {
-            _jumpDurationLeft -= Time.deltaTime;
-            isJumping = true;
-        }
+        //if (!grounded && Input.GetButton("Jump")&&canMove)
+        //{
+        //    _jumpDurationLeft -= Time.deltaTime;
+        //    isJumping = true;
+        //}
         //when release
         if (Input.GetButtonUp("Jump"))
         {
@@ -176,6 +180,7 @@ public class FPController : MonoBehaviour
     public void StopJump()
     {
         _jumpDurationLeft = 0;
+        //ResetGravityScale();
     }
     private void SprintChecks()
     {

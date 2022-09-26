@@ -193,6 +193,9 @@ public class ParkourGrabber : MonoBehaviour
     }
     public void Slide()
     {
+        //anim
+        handAnim.SetTrigger("Slide1");
+
         //bonus grav
         fpController.gravityScale = fpController.gravityScale * 50;
         fpController.Invoke("ResetGravityScale", 0.15f);
@@ -222,7 +225,7 @@ public class ParkourGrabber : MonoBehaviour
     }
     public void CanWallJump(bool canWallJump)
     {
-        if (!fpController.grounded)
+        if (!fpController.grounded &! doingMove)
         {
             this.canWallJump = canWallJump;
             fpController.gravityScale = fpController.gravityScale / 25;
