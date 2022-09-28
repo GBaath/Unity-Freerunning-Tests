@@ -101,7 +101,7 @@ public class ParkourGrabber : MonoBehaviour
         fpController.Invoke("ResetGravityScale",0.25f);
 
         //automove
-        fpController.StartCoroutine(fpController.LerpAutoMove(fpController.moveRaw*3, 0.25f));
+        fpController.StartCoroutine(fpController.LerpAutoMove(fpController.moveRaw*10, 0.25f));
 
         //reset doingMove in 500ms
         StartCoroutine(VarChange(result => doingMove = result, 0.5f, false));
@@ -216,7 +216,8 @@ public class ParkourGrabber : MonoBehaviour
         {
             qRoll = false;
             Debug.Log("roolll");
-            camAnim.Roll();
+            //camAnim.Roll();
+            camAnim.SetTrigger("Roll");
         }
     }
     public void MoveDone()

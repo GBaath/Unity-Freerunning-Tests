@@ -16,6 +16,7 @@ public class FPController : MonoBehaviour
     [HideInInspector] public LayerMask playerLayers;
 
     public float speed;
+    public float actualSpeed;
     public float speedMultiplier = 1;
     public float jumpForce = 10;
 
@@ -41,6 +42,7 @@ public class FPController : MonoBehaviour
     [SerializeField]private bool canMove = true;
     [HideInInspector] public bool grounded;
     [HideInInspector] public bool lockCamera;
+    private Transform camRef;
 
 
     //look
@@ -57,6 +59,7 @@ public class FPController : MonoBehaviour
 
     private void Awake()
     {
+        camRef = Camera.main.transform.parent;
         rb = GetComponent<Rigidbody>();
         startFov = Camera.main.fieldOfView;
         sprintFov = startFov + 15;
@@ -97,8 +100,11 @@ public class FPController : MonoBehaviour
         mouseY = Input.GetAxis("Mouse Y") * mouseSens * sensMultiplier * Time.deltaTime;
 
         SprintChecks();
-        Look();
         Jump();
+    }
+    private void LateUpdate()
+    {
+        Look();
     }
     private void FixedUpdate()
     {
@@ -111,7 +117,7 @@ public class FPController : MonoBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         if(!lockCamera)
-            Camera.main.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            camRef.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
     }
     public void Move()
@@ -129,12 +135,13 @@ public class FPController : MonoBehaviour
                 Vector3 vel = move * speed * speedMultiplier;
                 vel.y += rb.velocity.y;
                 vel += autoMove;
-
+                actualSpeed = vel.magnitude;
                 rb.velocity = vel;        
             }
             else
             {
                 Vector3 vel = autoMove + rb.velocity;
+                actualSpeed = vel.magnitude;
                 rb.velocity = vel;
             }
         }

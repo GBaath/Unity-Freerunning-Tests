@@ -4143,7 +4143,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh20218
+  m_Name: pb_Mesh20220
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -6118,6 +6118,11 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!135 &1025285399 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 2597884506744051782, guid: 7a070ffb5c52f9e4db4745ce8741f54f, type: 3}
+  m_PrefabInstance: {fileID: 2597884505966296106}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1051722653
 GameObject:
   m_ObjectHideFlags: 0
@@ -8866,7 +8871,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh20308
+  m_Name: pb_Mesh20310
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -9129,7 +9134,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh20230
+  m_Name: pb_Mesh20232
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -10761,7 +10766,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh20206
+  m_Name: pb_Mesh20208
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -11202,10 +11207,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 936446343398927741, guid: 7a070ffb5c52f9e4db4745ce8741f54f, type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1655611786902589516, guid: 7a070ffb5c52f9e4db4745ce8741f54f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.10577
@@ -11390,6 +11391,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2597884505552687454, guid: 7a070ffb5c52f9e4db4745ce8741f54f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2597884506073652943, guid: 7a070ffb5c52f9e4db4745ce8741f54f, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -11426,6 +11431,10 @@ PrefabInstance:
       propertyPath: refResetPoint
       value: 
       objectReference: {fileID: 1904930394}
+    - target: {fileID: 2597884506744051802, guid: 7a070ffb5c52f9e4db4745ce8741f54f, type: 3}
+      propertyPath: TriggerCollider
+      value: 
+      objectReference: {fileID: 1025285399}
     - target: {fileID: 2597884506821450796, guid: 7a070ffb5c52f9e4db4745ce8741f54f, type: 3}
       propertyPath: m_Layer
       value: 3

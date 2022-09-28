@@ -18,6 +18,8 @@ public class EventTrigger : MonoBehaviour
     public bool triggerOnExit;
     public bool separateEventOnTriggerExit;
 
+    [SerializeField] private bool doDebug;
+
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == colliderTag)
@@ -44,9 +46,15 @@ public class EventTrigger : MonoBehaviour
             if (disableColliderOnTrigger)
                 TriggerCollider.enabled = false;
         }
+
+        if (doDebug)
+            Debug.Log(other);
     }
     private void OnTriggerExit(Collider other)
     {
+        if (doDebug)
+            Debug.Log(other);
+
         if (triggerOnExit)
         {
             if (separateEventOnTriggerExit)
