@@ -147,7 +147,6 @@ public class ParkourGrabber : MonoBehaviour
         //anim
         handAnim.SetTrigger("Climb1");
         //match speed of climb with anim
-        handAnim.SetAnimSpeed(Mathf.Pow(climbSpeed,-1));
 
         //lerppos
         //ray for destination point
@@ -155,7 +154,8 @@ public class ParkourGrabber : MonoBehaviour
             Vector3 raystartpos = new Vector3(obstCheck.transform.position.x, obstCheck.transform.position.y + 5, obstCheck.transform.position.z);
             Physics.Raycast(raystartpos, Vector3.down, out ray, 5f);
         Vector3 pos = ray.point - Vector3.up; //centeroffset
-        climbSpeed = pos.y - transform.position.y - 1.5f;
+        climbSpeed = Mathf.Clamp(pos.y - transform.position.y - defClimbspeed*3,defClimbspeed,defClimbspeed*1.5f);
+        handAnim.SetAnimSpeed(Mathf.Pow(climbSpeed,-1));
             
         //extra forwardmove so you wont fall bdown backwards
         float xzDif = (pos.x + pos.z) - (transform.position.x + transform.position.z);
