@@ -16,6 +16,7 @@ public class ParkourGrabber : MonoBehaviour
 
     private float defClimbspeed;
     public float climbSpeed =0.5f;
+    public float wjUpForce, wjSideForce;
     
     private bool canWallJump;
     [SerializeField]private bool doingMove = false;
@@ -30,11 +31,11 @@ public class ParkourGrabber : MonoBehaviour
     }
     void Update()
     {
-        
+
         //if unput vaultover & nothin g in the way & not doing another move //&& has speed forward
-        if (Input.GetButton("Hand") && obstCheck.blockedLow &! obstCheck.blockedForward &! obstCheck.blockedMid &! doingMove)
+        if (Input.GetButton("Hand") && obstCheck.blockedLow & !obstCheck.blockedForward & !obstCheck.blockedMid & !doingMove)
         {
-            if (Input.GetAxisRaw("VerticalForward")>0)
+            if (Input.GetAxisRaw("VerticalForward") > 0)
             {
                 doingMove = true;
                 //pause grav, disable lower collider, timer
@@ -52,7 +53,7 @@ public class ParkourGrabber : MonoBehaviour
             }
         }
         //jump & obstacleinfront & space above it & not doing another
-        else if (Input.GetButton("Jump") && obstCheck.blockedMid &!obstCheck.blockedAbove & !doingMove)
+        else if (Input.GetButton("Jump") && obstCheck.blockedMid & !obstCheck.blockedAbove & !doingMove)
         {
             if (Input.GetAxisRaw("VerticalForward") > 0)
             {
@@ -60,11 +61,11 @@ public class ParkourGrabber : MonoBehaviour
                 doingMove = true;
                 ClimbUp();
             }
-            
+
         }
-        else if(Input.GetButtonDown("Jump") & !doingMove && canWallJump)
+        else if (Input.GetButtonDown("Jump") & !doingMove && canWallJump &! fpController.grounded)
         {
-            WallJump((fpController.moveRaw*2+Vector3.up));
+            WallJump(Camera.main.transform.forward*wjUpForce+ fpController.moveRaw * wjSideForce);//(fpController.moveRaw*wjSideForce+Vector3.up*wjUpForce));
         }
         else if(Input.GetButtonDown("Slide") &!doingMove)
         {
@@ -188,8 +189,8 @@ public class ParkourGrabber : MonoBehaviour
     public void WallJump(Vector3 dir)
     {
         fpController.StartCoroutine(fpController.LerpAutoMove(dir, 0.15f));
-        fpController.gravityScale = 0;
-        fpController.Invoke("ResetGravityScale", 0.15f);
+        //fpController.gravityScale = 0;
+       // fpController.Invoke("ResetGravityScale", 0.15f);
     }
     public void Slide()
     {
@@ -197,7 +198,7 @@ public class ParkourGrabber : MonoBehaviour
         handAnim.SetTrigger("Slide1");
 
         //bonus grav
-        fpController.gravityScale = fpController.gravityScale * 50;
+        fpController.gravityScale = fpController.gravityScale * 25;
         fpController.Invoke("ResetGravityScale", 0.15f);
 
         //lerping legs collider and for raise effect
