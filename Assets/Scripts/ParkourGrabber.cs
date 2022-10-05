@@ -17,8 +17,14 @@ public class ParkourGrabber : MonoBehaviour
     private float defClimbspeed;
     public float climbSpeed =0.5f;
     public float wjUpForce, wjSideForce;
-    
-    private bool canWallJump;
+    public enum WallJumpDirection
+    {
+        left,forward,right
+    }
+    private WallJumpDirection wjDir;
+
+    private bool canWallJump, hasWalljumped;
+
     [SerializeField]private bool doingMove = false;
     public bool crouching = false;
     [SerializeField]private bool qRoll;
@@ -63,7 +69,7 @@ public class ParkourGrabber : MonoBehaviour
             }
 
         }
-        else if (Input.GetButtonDown("Jump") & !doingMove && canWallJump &! fpController.grounded)
+        else if (Input.GetButtonDown("Jump") & !doingMove && canWallJump &! hasWalljumped &! fpController.grounded)
         {
             WallJump(Camera.main.transform.forward*wjUpForce+ fpController.moveRaw * wjSideForce);//(fpController.moveRaw*wjSideForce+Vector3.up*wjUpForce));
         }
@@ -189,8 +195,24 @@ public class ParkourGrabber : MonoBehaviour
     public void WallJump(Vector3 dir)
     {
         fpController.StartCoroutine(fpController.LerpAutoMove(dir, 0.15f));
+        hasWalljumped = true;
+        StartCoroutine(VarChange(result => hasWalljumped = result, 1, false));
+        switch (wjDir)
+        {
+            case WallJumpDirection.left:
+                handAnim.SetTrigger("WallJumpLeft");
+                break;
+            case WallJumpDirection.forward:
+                handAnim.SetTrigger("WallJumpForward");
+                break;
+            case WallJumpDirection.right:
+                handAnim.SetTrigger("WallJumpRight");
+                break;
+            default:
+                break;
+        }
         //fpController.gravityScale = 0;
-       // fpController.Invoke("ResetGravityScale", 0.15f);
+        // fpController.Invoke("ResetGravityScale", 0.15f);
     }
     public void Slide()
     {
@@ -227,13 +249,32 @@ public class ParkourGrabber : MonoBehaviour
     }
     public void CanWallJump(bool canWallJump)
     {
-        if (!fpController.grounded &! doingMove)
+        if (!fpController.grounded &! doingMove &! hasWalljumped)
         {
             this.canWallJump = canWallJump;
             fpController.gravityScale = fpController.gravityScale / 25;
             fpController.Invoke("ResetGravityScale", 0.5f);
         }
 
+    }
+    public void SetWallJumpDirection(int dir)
+    {
+        WallJumpDirection wjDir = WallJumpDirection.forward;
+        switch (dir)
+        {
+            case 1:
+                wjDir = WallJumpDirection.left;
+                break;
+            case 2:
+                wjDir = WallJumpDirection.forward;
+                break;
+            case 3:
+                wjDir = WallJumpDirection.right;
+                break;
+            default:
+                break;
+        }
+        this.wjDir = wjDir;
     }
     public IEnumerator Crouch(bool doCrouch, float delay)
     {

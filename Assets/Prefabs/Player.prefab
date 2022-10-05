@@ -166,6 +166,184 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &896004397343690418
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7531228904853677350}
+  - component: {fileID: 2362289183422986814}
+  - component: {fileID: 1918489943715868654}
+  m_Layer: 0
+  m_Name: Left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7531228904853677350
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896004397343690418}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5, y: 0, z: -0.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4211069861350600639}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &2362289183422986814
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896004397343690418}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1918489943715868654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896004397343690418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb7968ad6bd56e47b16ab1e0fc4f9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  linkedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2597884507403935324}
+        m_TargetAssemblyTypeName: ParkourGrabber, Assembly-CSharp
+        m_MethodName: SetWallJumpDirection
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  linkedEventOnExit:
+    m_PersistentCalls:
+      m_Calls: []
+  colliderTag: 
+  colliderLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  TriggerCollider: {fileID: 2362289183422986814}
+  disableColliderOnTrigger: 0
+  disableColliderOnTriggerExit: 0
+  triggerOnExit: 0
+  separateEventOnTriggerExit: 0
+  doDebug: 0
+--- !u!1 &1023017149452722138
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8396302305609803180}
+  - component: {fileID: 4422712956130023353}
+  - component: {fileID: 2069968507458457693}
+  m_Layer: 0
+  m_Name: Forward
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8396302305609803180
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023017149452722138}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4211069861350600639}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &4422712956130023353
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023017149452722138}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2069968507458457693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023017149452722138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb7968ad6bd56e47b16ab1e0fc4f9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  linkedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2597884507403935324}
+        m_TargetAssemblyTypeName: ParkourGrabber, Assembly-CSharp
+        m_MethodName: SetWallJumpDirection
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  linkedEventOnExit:
+    m_PersistentCalls:
+      m_Calls: []
+  colliderTag: 
+  colliderLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  TriggerCollider: {fileID: 4422712956130023353}
+  disableColliderOnTrigger: 0
+  disableColliderOnTriggerExit: 0
+  triggerOnExit: 0
+  separateEventOnTriggerExit: 0
+  doDebug: 0
 --- !u!1 &1857976911235047784
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,7 +373,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7531228904853677350}
+  - {fileID: 8396302305609803180}
+  - {fileID: 5444151034317610373}
   m_Father: {fileID: 2597884505517695286}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -266,6 +447,7 @@ MonoBehaviour:
   disableColliderOnTriggerExit: 0
   triggerOnExit: 1
   separateEventOnTriggerExit: 1
+  doDebug: 0
 --- !u!1 &1982804885282534826
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,6 +597,7 @@ MonoBehaviour:
   disableColliderOnTriggerExit: 0
   triggerOnExit: 1
   separateEventOnTriggerExit: 1
+  doDebug: 0
 --- !u!136 &781944625230285546
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -988,6 +1171,7 @@ MonoBehaviour:
   disableColliderOnTriggerExit: 0
   triggerOnExit: 1
   separateEventOnTriggerExit: 1
+  doDebug: 0
 --- !u!1 &2597884506744051776
 GameObject:
   m_ObjectHideFlags: 0
@@ -1125,6 +1309,7 @@ MonoBehaviour:
   disableColliderOnTriggerExit: 0
   triggerOnExit: 1
   separateEventOnTriggerExit: 1
+  doDebug: 0
 --- !u!1 &2597884506821450796
 GameObject:
   m_ObjectHideFlags: 0
@@ -1312,6 +1497,7 @@ MonoBehaviour:
   disableColliderOnTriggerExit: 0
   triggerOnExit: 1
   separateEventOnTriggerExit: 1
+  doDebug: 0
 --- !u!136 &2597884507123821652
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1430,6 +1616,7 @@ MonoBehaviour:
   disableColliderOnTriggerExit: 0
   triggerOnExit: 1
   separateEventOnTriggerExit: 1
+  doDebug: 0
 --- !u!65 &2597884507332605567
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1550,6 +1737,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   speed: 2
+  actualSpeed: 0
   speedMultiplier: 1
   jumpForce: 0.2
   gravityScale: 1500
@@ -1596,9 +1784,100 @@ MonoBehaviour:
   handAnim: {fileID: 2597884506160116513}
   camAnim: {fileID: 0}
   climbSpeed: 1
+  wjUpForce: 0
+  wjSideForce: 0
   doingMove: 0
   crouching: 0
   qRoll: 0
+--- !u!1 &5809519904702899360
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5444151034317610373}
+  - component: {fileID: 6078854588061422981}
+  - component: {fileID: 5591689520463673469}
+  m_Layer: 0
+  m_Name: Right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5444151034317610373
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5809519904702899360}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0, z: -0.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4211069861350600639}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &6078854588061422981
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5809519904702899360}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5591689520463673469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5809519904702899360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb7968ad6bd56e47b16ab1e0fc4f9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  linkedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2597884507403935324}
+        m_TargetAssemblyTypeName: ParkourGrabber, Assembly-CSharp
+        m_MethodName: SetWallJumpDirection
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  linkedEventOnExit:
+    m_PersistentCalls:
+      m_Calls: []
+  colliderTag: 
+  colliderLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  TriggerCollider: {fileID: 6078854588061422981}
+  disableColliderOnTrigger: 0
+  disableColliderOnTriggerExit: 0
+  triggerOnExit: 0
+  separateEventOnTriggerExit: 0
+  doDebug: 0
 --- !u!1 &5815465949122725683
 GameObject:
   m_ObjectHideFlags: 0
@@ -1881,6 +2160,7 @@ MonoBehaviour:
   disableColliderOnTriggerExit: 0
   triggerOnExit: 1
   separateEventOnTriggerExit: 1
+  doDebug: 0
 --- !u!135 &8537916344414767092
 SphereCollider:
   m_ObjectHideFlags: 0
