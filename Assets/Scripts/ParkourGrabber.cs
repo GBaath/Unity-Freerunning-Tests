@@ -305,16 +305,20 @@ public class ParkourGrabber : MonoBehaviour
         }
     }
     //changes bool after cooldown
-    IEnumerator VarChange(System.Action<bool> boolVar, float cooldown, bool endValue)
+    /*IEnumerator VarChange(System.Action<bool> boolVar, float cooldown, bool endValue)
     {
         yield return new WaitForSeconds(cooldown);
         boolVar(endValue);
-    }
+    }*/
     //change float after cooldown
-    IEnumerator VarChange(System.Action<float> floatVar, float cooldown, float endValue)
+    IEnumerator VarChange<T>(System.Action<T> var, float cooldown, T endValue)
     {
         yield return new WaitForSeconds(cooldown);
-        floatVar(endValue);
+        var(endValue);
+    }
+    private T Test<T>(T i)
+    {
+        return i;
     }
     //lerp centervalue of capsule collider
     private IEnumerator LerpColliderCenter(Vector3 endVal, float duration, CapsuleCollider capsuleCollider)
