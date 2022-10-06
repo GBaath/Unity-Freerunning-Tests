@@ -220,7 +220,7 @@ public class ParkourGrabber : MonoBehaviour
         handAnim.SetTrigger("Slide1");
 
         //bonus grav
-        fpController.gravityScale = fpController.gravityScale * 25;
+        fpController.gravityScale = fpController.gravityScale * 5;
         fpController.Invoke("ResetGravityScale", 0.15f);
 
         //lerping legs collider and for raise effect
